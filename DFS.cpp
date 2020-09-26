@@ -9,7 +9,7 @@ void DFS() {
     // Set start point of maze
     frontierSet_stack.push(nodeGrid[1][3]);
 
-    std::cout << "IDS:\n";
+    std::cout << "DFS:\n";
 
     depthFirstSearch(nodeGrid[1][3]);
 

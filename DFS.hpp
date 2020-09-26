@@ -7,7 +7,7 @@ using namespace NodeAndMap_namespace;
 namespace DFS_namespace {
 
 void DFS();
-bool depthFirstSearch(NodeAndMap_namespace::node currentNode);
+bool depthFirstSearch(node currentNode);
 } // namespace DFS_namespace
 
 #endif
