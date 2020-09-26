@@ -7,8 +7,8 @@ node nodeGrid[MAP_HEIGHT][MAP_WIDTH];
 int exploredNumber;
 int currentDepth;
 
-std::stack<node> frontierSet;
-std::unordered_map<std::string, node> exploredSet;
+std::stack<node> frontierSet_stack;
+std::unordered_map<std::string, node> exploredSet_hashMap;
 
 void setMapAndSets() {
 
@@ -46,10 +46,10 @@ void setMapAndSets() {
     nodeGrid[2][2].status = grid::GOAL;
 
     exploredNumber = 0;
-    exploredSet.clear();
+    exploredSet_hashMap.clear();
 
-    while (!frontierSet.empty()) {
-        frontierSet.pop();
+    while (!frontierSet_stack.empty()) {
+        frontierSet_stack.pop();
     }
 }
 
@@ -59,7 +59,7 @@ void DFS() {
     setMapAndSets();
 
     // Set start point of maze
-    frontierSet.push(nodeGrid[1][3]);
+    frontierSet_stack.push(nodeGrid[1][3]);
 
     std::cout << "IDS:\n";
 
@@ -97,10 +97,10 @@ bool depthFirstSearch(node currentNode) {
 
     //   1. Mark current node as visited
     // 1-1. Add node to the explored set (.number, node_IDS)
-    exploredSet.emplace(currentNode.number, currentNode);
+    exploredSet_hashMap.emplace(currentNode.number, currentNode);
 
     // 1-2. Pop node off of frontier set
-    frontierSet.pop();
+    frontierSet_stack.pop();
 
     // 1-3. If node is available, mark it as visited
     //      if it is instead the final goal, then the search is done
@@ -140,11 +140,11 @@ bool depthFirstSearch(node currentNode) {
     //      so we can explore them
     std::vector<node>::iterator it = thisNodeNeighbors.begin();
     for (; it != thisNodeNeighbors.end(); it++) {
-        frontierSet.push(*it);
+        frontierSet_stack.push(*it);
     }
 
     //   7. If the frontier stack is emty then we have failed the search
-    if (frontierSet.empty()) {
+    if (frontierSet_stack.empty()) {
         return false;
     }
 
@@ -153,7 +153,7 @@ bool depthFirstSearch(node currentNode) {
     //      until we fund the GOAL, and if that doesnt happen
     //      then we fail
     for (short z = 0; z < thisNodeNeighbors.size(); z++) {
-        if (depthFirstSearch(frontierSet.top())) {
+        if (depthFirstSearch(frontierSet_stack.top())) {
             return true;
         }
     }
@@ -215,9 +215,9 @@ std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
     std::vector<node> filteredNeighbors{};
 
     for (node temp : neighbors) {
-        std::unordered_map<std::string, node>::const_iterator got = exploredSet.find(temp.number);
+        std::unordered_map<std::string, node>::const_iterator got = exploredSet_hashMap.find(temp.number);
 
-        if (got == exploredSet.end())
+        if (got == exploredSet_hashMap.end())
             filteredNeighbors.push_back(temp);
     }
 

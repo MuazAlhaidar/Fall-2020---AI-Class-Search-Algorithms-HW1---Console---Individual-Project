@@ -31,10 +31,9 @@ extern node nodeGrid[][MAP_WIDTH];
 // Current number to increment and assign to the
 // number of a node_IDS
 extern int exploredNumber;
-extern int currentDepth;
 
-extern std::stack<node> frontierSet;
-extern std::unordered_map<std::string, node> exploredSet;
+extern std::stack<node> frontierSet_stack;
+extern std::unordered_map<std::string, node> exploredSet_hashMap;
 
 void setMapAndSets();
 void DFS();
