@@ -61,11 +61,3 @@ Steps for BFS:
        run the search to explore all if the options
        until we fund the GOAL, and if that doesnt happen
        then we fail
-       
-Steps for UCS:
-    1. Mark current node as visited
-        1-1. Add node to the explored set (.number, node_IDS)
-            1-1-1. If this node has a lower path than the node in the explored set
-        1-2. Pop node off of frontier set
-        1-3. If node is available, mark it as visited
-             if it is instead the final goal, then the search is done

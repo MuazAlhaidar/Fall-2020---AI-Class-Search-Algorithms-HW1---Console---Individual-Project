@@ -73,6 +73,23 @@ void addNodesToGrid(std::vector<node> nodeList) {
         nodeGrid[nodeList[w].position.first][nodeList[w].position.second] = nodeList[w];
 }
 
+int manhattanDistance(std::pair<int, int> start, std::pair<int, int> goal) {
+    std::pair<int, int> distance = {goal.first - start.first, goal.second - start.second};
+
+    // If the y distance is positive then
+    // the goal is above the start
+    if (distance.first > 0) {
+        // If values are negative
+        // Make them posiitive to find the positive distance
+        distance.second = abs(distance.second);
+        return distance.first * UP_COST + distance.second * SIDE_COST;
+    } else {
+        distance.first = abs(distance.first);
+        distance.second = abs(distance.second);
+        return distance.first * DOWN_COST + distance.second * SIDE_COST;
+    }
+}
+
 std::string assignNodeNumber() {
 
     exploredNumber++;
@@ -87,56 +104,47 @@ std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos) {
 
     std::vector<node> neighbors{};
     grid nodeStatus;
+    std::pair<int, int> goal(2, 2);
 
-    // Left
-    nodeStatus = getNodeStatus(nodePos.first, nodePos.second - 1);
-    if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePos.first][nodePos.second - 1].isVisited) {
-        neighbors.push_back(
-            nodeGrid[nodePos.first][nodePos.second - 1]);
-    }
+    auto nodePushNeighbor = [](int x,
+                               int y,
+                               int parentCost,
+                               short DIR,
+                               std::vector<node> &neighbors,
+                               std::pair<int, int> goal) {
+        grid nodeStatus = getNodeStatus(x, y);
+        if ((nodeStatus == FREE || nodeStatus == GOAL) &&
+            !nodeGrid[x][y].isVisited) {
+            if (!isInExploredSet(x, y)) {
+                nodeGrid[x][y].pathCost = DIR + parentCost;
+                nodeGrid[x][y].predPathCost = manhattanDistance(std::pair<int, int>(x, y), goal);
+                neighbors.push_back(nodeGrid[x][y]);
+            }
+        }
+    };
 
-    // Up
-    nodeStatus = getNodeStatus(nodePos.first - 1, nodePos.second);
-    if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePos.first - 1][nodePos.second].isVisited) {
-        neighbors.push_back(
-            nodeGrid[nodePos.first - 1][nodePos.second]);
-    }
+    int pastPath = nodeGrid[nodePos.first][nodePos.second].pathCost;
 
-    // Right
-    nodeStatus = getNodeStatus(nodePos.first, nodePos.second + 1);
-    if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePos.first][nodePos.second + 1].isVisited) {
-        neighbors.push_back(
-            nodeGrid[nodePos.first][nodePos.second + 1]);
-    }
-
-    // Down
-    nodeStatus = getNodeStatus(nodePos.first + 1, nodePos.second);
-    if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePos.first + 1][nodePos.second].isVisited) {
-        neighbors.push_back(
-            nodeGrid[nodePos.first + 1][nodePos.second]);
-    }
+    nodePushNeighbor(nodePos.first, nodePos.second - 1, pastPath, SIDE_COST, neighbors, goal);
+    nodePushNeighbor(nodePos.first - 1, nodePos.second, pastPath, UP_COST, neighbors, goal);
+    nodePushNeighbor(nodePos.first, nodePos.second + 1, pastPath, SIDE_COST, neighbors, goal);
+    nodePushNeighbor(nodePos.first + 1, nodePos.second, pastPath, DOWN_COST, neighbors, goal);
 
     return neighbors;
 }
 
-std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
-    std::vector<node> filteredNeighbors{};
+bool isInExploredSet(int x, int y) {
+    std::unordered_map<std::string, node>::const_iterator got = exploredSet_hashMap.find(nodeGrid[x][y].number);
 
-    for (node temp : neighbors) {
-        std::unordered_map<std::string, node>::const_iterator got = exploredSet_hashMap.find(temp.number);
-
-        if (got == exploredSet_hashMap.end())
-            filteredNeighbors.push_back(temp);
+    if (got == exploredSet_hashMap.end()) {
+        return false;
     }
 
-    return filteredNeighbors;
+    return true;
 }
 
-std::vector<node> checkExploredSet_UCS(const std::vector<node> neighbors) {
+/*
+std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
     std::vector<node> filteredNeighbors{};
 
     for (node temp : neighbors) {
@@ -152,6 +160,7 @@ std::vector<node> checkExploredSet_UCS(const std::vector<node> neighbors) {
 
     return filteredNeighbors;
 }
+*/
 
 grid getNodeStatus(int nodeRow, int nodeColumn) {
     if (nodeColumn < 0 || nodeColumn >= MAP_WIDTH) {
@@ -164,4 +173,10 @@ grid getNodeStatus(int nodeRow, int nodeColumn) {
 
     return nodeGrid[nodeRow][nodeColumn].status;
 }
+
+template <class T>
+void temp() {
+    std::priority_queue<node, std::vector<node>, T> frontierSet;
+}
+
 } // namespace NodeAndMap_namespace

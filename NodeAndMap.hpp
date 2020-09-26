@@ -15,8 +15,7 @@ const short MAP_WIDTH = 5;
 const short MAP_HEIGHT = 4;
 
 const short UP_COST = 3;
-const short RIGHT_COST = 2;
-const short LEFT_COST = 2;
+const short SIDE_COST = 2;
 const short DOWN_COST = 1;
 
 enum grid {
@@ -31,8 +30,8 @@ struct node {
     std::string number = "  ";
     std::pair<int, int> position;
     bool isVisited = false;
-    int pathCost;
-    int predictedPathCost;
+    int pathCost = 0;
+    int predPathCost = 0;
     grid status = grid::FREE;
 };
 
@@ -50,13 +49,49 @@ void setMapAndSets();
 void printMap();
 void addNodesToGrid(std::vector<node> nodeList);
 
+int manhattanDistance(std::pair<int, int> start, std::pair<int, int> goal);
+
+bool isInExploredSet(int x, int y);
+
 std::string assignNodeNumber();
 
 grid getNodeStatus(int nodeRow, int nodeColumn);
 
 std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos);
-std::vector<node> checkExploredSet(const std::vector<node> neighbors);
-std::vector<node> checkExploredSet_UCS(const std::vector<node> neighbors);
+
+// Comaprison Functions
+struct UCS_compare {
+    bool operator()(const node &firstNode, const node &secNode) {
+        if (firstNode.pathCost == secNode.pathCost) {
+            return firstNode.number > secNode.number;
+        }
+        return firstNode.pathCost > secNode.pathCost;
+    }
+};
+
+struct GBFS_compare {
+    bool operator()(const node &firstNode, const node &secNode) {
+        if (firstNode.predPathCost == secNode.predPathCost) {
+            return firstNode.number > secNode.number;
+        }
+        return firstNode.predPathCost > secNode.predPathCost;
+    }
+};
+
+struct A_compare {
+    bool operator()(const node &firstNode, const node &secNode) {
+        int firstCost = firstNode.predPathCost + firstNode.pathCost;
+        int secCost = secNode.predPathCost + secNode.pathCost;
+        if (firstCost == secCost) {
+            return firstNode.number > secNode.number;
+        }
+        return firstCost > secCost;
+    }
+};
+
+template <class T>
+void temp(T compareFunction);
+
 } // namespace NodeAndMap_namespace
 
 #endif

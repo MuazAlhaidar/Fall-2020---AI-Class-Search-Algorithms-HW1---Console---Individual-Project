@@ -48,7 +48,7 @@ bool depthFirstSearch(node currentNode) {
     // 2-1. Get all available childen of node
     // 2-2. Filter them to get only unexplored nodes
     //      by checking if they are in exploredSet
-    std::vector<node> thisNodeNeighbors = checkExploredSet(getNodeNeighbors(currentNode.position));
+    std::vector<node> thisNodeNeighbors = getNodeNeighbors(currentNode.position);
 
     //   3. If the neighbors list is emppty then
     //      this branch is a dead end
