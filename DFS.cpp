@@ -5,7 +5,6 @@ node nodeGrid[MAP_HEIGHT][MAP_WIDTH];
 // Current number to increment and assign to the
 // number of a node_IDS
 int exploredNumber;
-int currentDepth;
 
 std::stack<node> frontierSet_stack;
 std::unordered_map<std::string, node> exploredSet_hashMap;
