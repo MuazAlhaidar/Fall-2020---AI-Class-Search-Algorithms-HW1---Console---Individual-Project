@@ -66,7 +66,7 @@ bool depthFirstSearch(node currentNode) {
 
     //   5 Add nodes to node grid so they can be displayed
     //     later on with the print map function
-    addNodesToGrid(thisNodeNeighbors);
+    addNodesToGrid_vector(thisNodeNeighbors);
 
     //   6. Push the neighbors onto the frontier stack
     //      so we can explore them

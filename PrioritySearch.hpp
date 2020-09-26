@@ -7,7 +7,7 @@ using namespace NodeAndMap_namespace;
 namespace PrioritySearch_namespace {
 
 template <class T>
-void ProritySearch();
+void PrioritySearch();
 }
 
 #endif

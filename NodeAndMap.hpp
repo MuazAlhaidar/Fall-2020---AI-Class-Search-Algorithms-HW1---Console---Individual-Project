@@ -47,7 +47,8 @@ extern std::unordered_map<std::string, node> exploredSet_hashMap;
 
 void setMapAndSets();
 void printMap();
-void addNodesToGrid(std::vector<node> nodeList);
+void addNodesToGrid_vector(std::vector<node> nodeList);
+void addNodesToGrid(node currentNode);
 
 int manhattanDistance(std::pair<int, int> start, std::pair<int, int> goal);
 
@@ -90,7 +91,7 @@ struct A_compare {
 };
 
 template <class T>
-void temp(T compareFunction);
+void temp();
 
 } // namespace NodeAndMap_namespace
 

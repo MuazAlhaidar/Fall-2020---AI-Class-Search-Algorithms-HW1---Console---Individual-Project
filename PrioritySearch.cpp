@@ -2,7 +2,7 @@
 namespace PrioritySearch_namespace {
 
 template <class T>
-void ProritySearch() {
+void PrioritySearch() {
 
     std::priority_queue<node, std::vector<node>, T> frontierSet;
 
@@ -10,7 +10,25 @@ void ProritySearch() {
 
     frontierSet.push(nodeGrid[1][3]);
 
-    std::cout << "DFS:\n";
+    while (!frontierSet.empty()) {
+        node currentNode = frontierSet.top();
+        frontierSet.pop();
+
+        if (currentNode.status == GOAL) {
+            addNodesToGrid(currentNode);
+            break;
+        }
+
+        currentNode.isVisited = true;
+        exploredSet_hashMap.emplace(currentNode.number, currentNode);
+
+        std::vector<node> thisNodeNeighbors = getNodeNeighbors(currentNode.position);
+
+        std::vector<node>::iterator it = thisNodeNeighbors.begin();
+        for (; it != thisNodeNeighbors.end(); it++) {
+            frontierSet.push(*it);
+        }
+    }
 
     time_t now = time(0);
     struct tm tstruct;
@@ -23,4 +41,4 @@ void ProritySearch() {
     // Print the map after final Success
     printMap();
 }
-} 
+} // namespace PrioritySearch_namespace

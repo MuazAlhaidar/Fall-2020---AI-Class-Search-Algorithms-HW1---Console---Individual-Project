@@ -10,5 +10,7 @@ int main() {
     DFS_namespace::DFS();
     BFS_namespace::BFS();
 
+    PrioritySearch_namespace::PrioritySearch<NodeAndMap_namespace::UCS_compare>();
+
     return 0;
 }

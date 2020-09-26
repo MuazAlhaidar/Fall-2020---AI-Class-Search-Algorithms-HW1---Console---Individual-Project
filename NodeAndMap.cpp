@@ -68,9 +68,13 @@ void printMap() {
     std::cout << "--------------\n";
 }
 
-void addNodesToGrid(std::vector<node> nodeList) {
+void addNodesToGrid_vector(std::vector<node> nodeList) {
     for (short w = 0; w < nodeList.size(); w++)
         nodeGrid[nodeList[w].position.first][nodeList[w].position.second] = nodeList[w];
+}
+
+void addNodesToGrid(node currentNode) {
+    nodeGrid[currentNode.position.first][currentNode.position.second] = currentNode;
 }
 
 int manhattanDistance(std::pair<int, int> start, std::pair<int, int> goal) {
