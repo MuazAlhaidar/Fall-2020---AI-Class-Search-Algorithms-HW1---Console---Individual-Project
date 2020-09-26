@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 
-    DFS();
+    DFS_namespace::DFS();
 
     return 0;
 }

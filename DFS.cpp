@@ -1,5 +1,5 @@
 #include "DFS.hpp"
-
+namespace DFS_namespace {
 node nodeGrid[MAP_HEIGHT][MAP_WIDTH];
 
 // Current number to increment and assign to the
@@ -235,3 +235,4 @@ grid getNodeStatus(int nodeRow, int nodeColumn) {
 
     return nodeGrid[nodeRow][nodeColumn].status;
 }
+} // namespace DFS_namespace

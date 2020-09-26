@@ -1,5 +1,5 @@
-#ifndef IDS
-#define IDS
+#ifndef _DFS_
+#define _DFS_
 #include <ctime>
 #include <iostream>
 #include <stack>
@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+namespace DFS_namespace {
 
 const short MAP_WIDTH = 5;
 const short MAP_HEIGHT = 4;
@@ -48,5 +50,6 @@ grid getNodeStatus(int nodeRow, int nodeColumn);
 
 std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePosition);
 std::vector<node> checkExploredSet(const std::vector<node> neighbors);
+} // namespace DFS_namespace
 
 #endif
