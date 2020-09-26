@@ -8,6 +8,7 @@ node nodeGrid[MAP_HEIGHT][MAP_WIDTH];
 int exploredNumber;
 
 std::stack<node> frontierSet_stack;
+std::queue<node> frontierSet_queue;
 std::unordered_map<std::string, node> exploredSet_hashMap;
 
 void setMapAndSets() {
@@ -48,9 +49,11 @@ void setMapAndSets() {
     exploredNumber = 0;
     exploredSet_hashMap.clear();
 
-    while (!frontierSet_stack.empty()) {
+    while (!frontierSet_stack.empty())
         frontierSet_stack.pop();
-    }
+
+    while (!frontierSet_queue.empty())
+        frontierSet_queue.pop();
 }
 
 void printMap() {

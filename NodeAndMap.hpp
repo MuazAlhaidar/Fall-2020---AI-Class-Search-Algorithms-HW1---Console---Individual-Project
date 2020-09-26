@@ -2,6 +2,7 @@
 #define _NodeAndMap_
 #include <ctime>
 #include <iostream>
+#include <queue>
 #include <stack>
 #include <string>
 #include <unordered_map>
@@ -35,6 +36,7 @@ extern node nodeGrid[][MAP_WIDTH];
 extern int exploredNumber;
 
 extern std::stack<node> frontierSet_stack;
+extern std::queue<node> frontierSet_queue;
 extern std::unordered_map<std::string, node> exploredSet_hashMap;
 
 void setMapAndSets();
