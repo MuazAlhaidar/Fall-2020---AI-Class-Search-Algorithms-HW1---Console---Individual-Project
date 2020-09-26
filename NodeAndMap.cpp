@@ -143,6 +143,23 @@ bool isInExploredSet(int x, int y) {
     return true;
 }
 
+grid getNodeStatus(int nodeRow, int nodeColumn) {
+    if (nodeColumn < 0 || nodeColumn >= MAP_WIDTH) {
+        return BLOCK;
+    }
+
+    if (nodeRow < 0 || nodeRow >= MAP_HEIGHT) {
+        return BLOCK;
+    }
+
+    return nodeGrid[nodeRow][nodeColumn].status;
+}
+
+template <class T>
+void temp() {
+    std::priority_queue<node, std::vector<node>, T> frontierSet;
+}
+
 /*
 std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
     std::vector<node> filteredNeighbors{};
@@ -161,22 +178,5 @@ std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
     return filteredNeighbors;
 }
 */
-
-grid getNodeStatus(int nodeRow, int nodeColumn) {
-    if (nodeColumn < 0 || nodeColumn >= MAP_WIDTH) {
-        return BLOCK;
-    }
-
-    if (nodeRow < 0 || nodeRow >= MAP_HEIGHT) {
-        return BLOCK;
-    }
-
-    return nodeGrid[nodeRow][nodeColumn].status;
-}
-
-template <class T>
-void temp() {
-    std::priority_queue<node, std::vector<node>, T> frontierSet;
-}
 
 } // namespace NodeAndMap_namespace

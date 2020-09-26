@@ -59,7 +59,7 @@ grid getNodeStatus(int nodeRow, int nodeColumn);
 
 std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos);
 
-// Comaprison Functions
+// Comprison Functions
 struct UCS_compare {
     bool operator()(const node &firstNode, const node &secNode) {
         if (firstNode.pathCost == secNode.pathCost) {

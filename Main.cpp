@@ -1,5 +1,7 @@
 #include "BFS.hpp"
 #include "DFS.hpp"
+#include "NodeAndMap.hpp"
+#include "PrioritySearch.hpp"
 #include <iostream>
 using namespace std;
 
