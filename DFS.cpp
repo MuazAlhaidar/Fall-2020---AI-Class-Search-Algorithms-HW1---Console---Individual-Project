@@ -92,5 +92,4 @@ bool depthFirstSearch(node currentNode) {
 
     return false;
 }
-
 } // namespace DFS_namespace
