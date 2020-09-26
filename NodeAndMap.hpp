@@ -14,6 +14,11 @@ namespace NodeAndMap_namespace {
 const short MAP_WIDTH = 5;
 const short MAP_HEIGHT = 4;
 
+const short UP_COST = 3;
+const short RIGHT_COST = 2;
+const short LEFT_COST = 2;
+const short DOWN_COST = 1;
+
 enum grid {
     FREE,
     NOTFREE,
@@ -24,8 +29,10 @@ enum grid {
 
 struct node {
     std::string number = "  ";
-    bool isVisited = false;
     std::pair<int, int> position;
+    bool isVisited = false;
+    int pathCost;
+    int predictedPathCost;
     grid status = grid::FREE;
 };
 
@@ -47,8 +54,9 @@ std::string assignNodeNumber();
 
 grid getNodeStatus(int nodeRow, int nodeColumn);
 
-std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePosition);
+std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos);
 std::vector<node> checkExploredSet(const std::vector<node> neighbors);
+std::vector<node> checkExploredSet_UCS(const std::vector<node> neighbors);
 } // namespace NodeAndMap_namespace
 
 #endif

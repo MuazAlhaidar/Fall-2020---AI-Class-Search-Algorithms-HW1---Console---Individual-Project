@@ -19,6 +19,7 @@ void setMapAndSets() {
             nodeGrid[x][y].number = "  ";
             nodeGrid[x][y].isVisited = false;
             nodeGrid[x][y].status = grid::FREE;
+            nodeGrid[x][y].pathCost = 0;
             nodeGrid[x][y].position = std::make_pair(x, y);
         }
     }
@@ -82,41 +83,41 @@ std::string assignNodeNumber() {
     return std::to_string(exploredNumber);
 }
 
-std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePosition) {
+std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos) {
 
     std::vector<node> neighbors{};
     grid nodeStatus;
 
     // Left
-    nodeStatus = getNodeStatus(nodePosition.first, nodePosition.second - 1);
+    nodeStatus = getNodeStatus(nodePos.first, nodePos.second - 1);
     if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePosition.first][nodePosition.second - 1].isVisited) {
+        !nodeGrid[nodePos.first][nodePos.second - 1].isVisited) {
         neighbors.push_back(
-            nodeGrid[nodePosition.first][nodePosition.second - 1]);
+            nodeGrid[nodePos.first][nodePos.second - 1]);
     }
 
     // Up
-    nodeStatus = getNodeStatus(nodePosition.first - 1, nodePosition.second);
+    nodeStatus = getNodeStatus(nodePos.first - 1, nodePos.second);
     if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePosition.first - 1][nodePosition.second].isVisited) {
+        !nodeGrid[nodePos.first - 1][nodePos.second].isVisited) {
         neighbors.push_back(
-            nodeGrid[nodePosition.first - 1][nodePosition.second]);
+            nodeGrid[nodePos.first - 1][nodePos.second]);
     }
 
     // Right
-    nodeStatus = getNodeStatus(nodePosition.first, nodePosition.second + 1);
+    nodeStatus = getNodeStatus(nodePos.first, nodePos.second + 1);
     if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePosition.first][nodePosition.second + 1].isVisited) {
+        !nodeGrid[nodePos.first][nodePos.second + 1].isVisited) {
         neighbors.push_back(
-            nodeGrid[nodePosition.first][nodePosition.second + 1]);
+            nodeGrid[nodePos.first][nodePos.second + 1]);
     }
 
     // Down
-    nodeStatus = getNodeStatus(nodePosition.first + 1, nodePosition.second);
+    nodeStatus = getNodeStatus(nodePos.first + 1, nodePos.second);
     if ((nodeStatus == FREE || nodeStatus == GOAL) &&
-        !nodeGrid[nodePosition.first + 1][nodePosition.second].isVisited) {
+        !nodeGrid[nodePos.first + 1][nodePos.second].isVisited) {
         neighbors.push_back(
-            nodeGrid[nodePosition.first + 1][nodePosition.second]);
+            nodeGrid[nodePos.first + 1][nodePos.second]);
     }
 
     return neighbors;
@@ -130,6 +131,23 @@ std::vector<node> checkExploredSet(const std::vector<node> neighbors) {
 
         if (got == exploredSet_hashMap.end())
             filteredNeighbors.push_back(temp);
+    }
+
+    return filteredNeighbors;
+}
+
+std::vector<node> checkExploredSet_UCS(const std::vector<node> neighbors) {
+    std::vector<node> filteredNeighbors{};
+
+    for (node temp : neighbors) {
+        std::unordered_map<std::string, node>::const_iterator got = exploredSet_hashMap.find(temp.number);
+
+        if (got == exploredSet_hashMap.end()) {
+            filteredNeighbors.push_back(temp);
+        } else if (exploredSet_hashMap[temp.number].pathCost > temp.pathCost) {
+            exploredSet_hashMap[temp.number].pathCost = temp.pathCost;
+            filteredNeighbors.push_back(temp);
+        }
     }
 
     return filteredNeighbors;

@@ -75,7 +75,7 @@ bool breadthFirstSearch(node currentNode) {
         frontierSet_queue.push(*it);
     }
 
-    //   7. If the frontier stack is emty then we have failed the search
+    //   7. If the frontier stack is empty then we have failed the search
     if (frontierSet_queue.empty()) {
         return false;
     }
