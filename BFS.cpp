@@ -1,4 +1,5 @@
 #include "BFS.hpp"
+#include <iostream>
 namespace BFS_namespace {
 
 void BFS() {

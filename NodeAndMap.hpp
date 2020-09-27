@@ -1,7 +1,6 @@
-#ifndef _NodeAndMap_
-#define _NodeAndMap_
+#ifndef _NODE_
+#define _NODE_
 #include <ctime>
-#include <iostream>
 #include <queue>
 #include <stack>
 #include <string>

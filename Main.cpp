@@ -2,7 +2,6 @@
 #include "DFS.hpp"
 #include "NodeAndMap.hpp"
 #include "PrioritySearch.hpp"
-#include <iostream>
 using namespace std;
 
 int main() {
@@ -10,7 +9,7 @@ int main() {
     DFS_namespace::DFS();
     BFS_namespace::BFS();
 
-    PrioritySearch_namespace::PrioritySearch<NodeAndMap_namespace::UCS_compare>();
+    PrioritySearch_namespace::PrioritySearch<UCS_compare>();
 
     return 0;
 }

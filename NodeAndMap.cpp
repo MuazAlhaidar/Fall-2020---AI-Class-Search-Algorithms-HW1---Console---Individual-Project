@@ -1,4 +1,5 @@
 #include "NodeAndMap.hpp"
+#include <iostream>
 namespace NodeAndMap_namespace {
 
 node nodeGrid[MAP_HEIGHT][MAP_WIDTH];
