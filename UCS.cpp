@@ -10,7 +10,7 @@ void UCS() {
     // Set start point of maze
     frontierSet_queue.push(nodeGrid[1][3]);
 
-    std::cout << "BFS:\n";
+    std::cout << "UCS:\n";
 
     uniformCostSearch(nodeGrid[1][3]);
 

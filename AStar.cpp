@@ -10,7 +10,7 @@ void AStar() {
     // Set start point of maze
     frontierSet_queue.push(nodeGrid[1][3]);
 
-    std::cout << "BFS:\n";
+    std::cout << "A*:\n";
 
     aStarSearch(nodeGrid[1][3]);
 

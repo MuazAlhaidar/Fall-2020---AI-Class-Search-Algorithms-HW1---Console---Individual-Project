@@ -10,7 +10,7 @@ void GBFS() {
     // Set start point of maze
     frontierSet_queue.push(nodeGrid[1][3]);
 
-    std::cout << "BFS:\n";
+    std::cout << "GBFS:\n";
 
     greadyBreadthFirstSearch(nodeGrid[1][3]);
 
