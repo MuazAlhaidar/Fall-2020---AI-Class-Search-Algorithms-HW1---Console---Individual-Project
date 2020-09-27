@@ -63,11 +63,7 @@ std::vector<node> getNodeNeighbors(const std::pair<int, int> nodePos);
 struct UCS_compare {
     bool operator()(const node &firstNode, const node &secNode) {
         if (firstNode.pathCost == secNode.pathCost) {
-            if (firstNode.number.compare(secNode.number)) {
-                return true;
-            } else {
-                return false;
-            }
+            return (firstNode.number.compare(secNode.number) > 0);
         }
         return firstNode.pathCost > secNode.pathCost;
     }
@@ -76,11 +72,7 @@ struct UCS_compare {
 struct GBFS_compare {
     bool operator()(const node &firstNode, const node &secNode) {
         if (firstNode.predPathCost == secNode.predPathCost) {
-            if (firstNode.number.compare(secNode.number)) {
-                return true;
-            } else {
-                return false;
-            }
+            return (firstNode.number.compare(secNode.number) > 0);
         }
         return firstNode.predPathCost > secNode.predPathCost;
     }
@@ -91,11 +83,7 @@ struct A_compare {
         int firstCost = firstNode.predPathCost + firstNode.pathCost;
         int secCost = secNode.predPathCost + secNode.pathCost;
         if (firstCost == secCost) {
-            if (firstNode.number.compare(secNode.number)) {
-                return true;
-            } else {
-                return false;
-            }
+            return (firstNode.number.compare(secNode.number) > 0);
         }
         return firstCost > secCost;
     }
