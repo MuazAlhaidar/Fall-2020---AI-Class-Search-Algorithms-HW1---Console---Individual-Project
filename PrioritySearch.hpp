@@ -1,5 +1,5 @@
-#ifndef _PRIORITYSEARCH_
-#define _PRIORITYSEARCH_
+#ifndef _PRIORITY_
+#define _PRIORITY_
 
 #include "NodeAndMap.hpp"
 #include <iostream>
@@ -20,10 +20,7 @@ void PrioritySearch() {
 
         node currentNode = frontierSet.top();
 
-        if (currentNode.status == START)
-            exploredSet_hashMap.emplace(0, currentNode);
-        else
-            exploredSet_hashMap.emplace(currentNode.number, currentNode);
+        exploredSet_hashMap.emplace(currentNode.number, currentNode);
 
         frontierSet.pop();
 
@@ -45,10 +42,6 @@ void PrioritySearch() {
 
         for (auto x : thisNodeNeighbors) {
             frontierSet.push(x);
-        }
-
-        if (frontierSet.empty()) {
-            break;
         }
     }
 
